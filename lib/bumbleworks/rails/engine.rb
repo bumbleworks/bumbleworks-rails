@@ -1,3 +1,5 @@
+require 'bumbleworks'
+
 module Bumbleworks
   module Rails
     class Engine < ::Rails::Engine

@@ -12,3 +12,6 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+gem 'bumbleworks', :path => '../bumbleworks'
+gem 'bumbleworks-gui', :path => '../bumbleworks-gui'
