@@ -1,0 +1,31 @@
+# Using the Sequel storage adapter for Bumbleworks.
+#
+default: &default
+  # Any adapter that Sequel can connect to (mysql, postgres, sqlite, etc.)
+  adapter: postgres
+
+  # Hostname where database server resides
+  host: localhost
+
+  # User to connect to database as
+  username: bumbleworks
+
+  # Password for user specified above
+  password:
+
+# Database names are specified below, per environment.
+# If it doesn't already exist, a table will be created in the specified database
+# (the name of that table is specified in `config/initializers/bumbleworks.rb`
+# as the `sequel_table_name` storage option).
+#
+development:
+  <<: *default
+  database: bumbleworks_development
+
+test:
+  <<: *default
+  database: bumbleworks_test
+
+production:
+  <<: *default
+  database: bumbleworks_production
