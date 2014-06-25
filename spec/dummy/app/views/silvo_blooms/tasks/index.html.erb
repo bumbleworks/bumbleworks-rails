@@ -1,0 +1,11 @@
+<div class="window">
+  <header>
+    <h2>Tasks</h2>
+  </header>
+  <h3>Dr. Silvo Recommends Working On:</h3>
+  <%= render :partial => 'bumbleworks/rails/tasks/table',
+      :locals => { :tasks => @available_tasks } %>
+  <h3>You should finish:</h3>
+  <%= render :partial => 'bumbleworks/rails/tasks/table',
+      :locals => { :tasks => @claimed_tasks } %>
+</div>

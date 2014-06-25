@@ -1,0 +1,34 @@
+<div class="bread-crumb">
+  <% if @task.has_entity? %>
+    <a id="<%= @task.entity_fields[:type].underscore %>_id" href="<%= main_app.send("#{@task.entity.class.entity_type}_path", @task.entity) %>"><%= @task.entity_fields(:humanize => true)[:type] %>: <%= @task.entity.to_param %></a> TASK:
+  <% end %>
+  <%= task_name(@task) %>
+</div>
+<div class="window">
+  <header><h2><%= task_name(@task) %></h2></header>
+  <div class="task">
+    <%= render_task_partial(@task) %>
+  </div>
+  <div class="task-controls clearfix">
+    <div id="task_control">
+      <span>
+        <% if @task.claimed? %>
+          Claimed By: <%= @task.claimant %>
+          <% if @task.claimant == current_user.claim_token %>
+            <%= button_to 'Release', main_app.release_task_url(:id => @task.id), :method => :post, :id => "release-#{@task.nickname.gsub('_', '-')}-link", :class => "release-link" %>
+          <% end %>
+        <% else %>
+          <%= button_to 'Claim', main_app.claim_task_url(:id => @task.id), :method => :post, :id => "claim-#{@task.nickname.gsub('_', '-')}-link", :class => "claim-link" %>
+        <% end %>
+      </span>
+    </div>
+    <% if @task.claimant == current_user.claim_token %>
+      <div id='task_work'>
+        <span>
+          <%= button_to 'Complete', main_app.complete_task_url(:id => @task.id), :method => :post,
+            :id => "complete-#{@task.nickname.gsub('_', '-')}-link", :class => "complete-link" %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>

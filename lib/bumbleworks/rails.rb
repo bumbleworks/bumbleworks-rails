@@ -1,3 +1,4 @@
+require 'bumbleworks'
 require 'bumbleworks/rails/engine'
 
 module Bumbleworks

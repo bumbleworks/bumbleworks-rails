@@ -1,0 +1,11 @@
+en:
+  bumbleworks:
+    unauthorized: "You are not authorized to access that resource."
+    tasks:
+      completed: "Task completed!"
+      not_found: "Can't find task %{task_id}"
+      unauthorized_release_attempt: "You do not currently have a lock on this task"
+      unclaimed_complete_attempt: "You cannot complete a task not claimed by you"
+      names:
+        shave_calves: "Calf Shaving is Fun"
+        iron_feet: "Ouch, that hurts %{entity}"

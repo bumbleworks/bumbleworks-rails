@@ -1,0 +1,43 @@
+<table class="tasks">
+  <% unless tasks.empty? %>
+    <thead>
+      <th>Task</th>
+      <th>Actions</th>
+      <th class="task_role_header">Role</th>
+    </thead>
+    <tbody>
+      <% tasks.sort_by {|x| x['dispatched_at']}.each do |task| %>
+        <tr class="task">
+          <td class="task-name">
+            <%= task_name(task) %>
+          </td>
+          <td class="task-actions">
+            <% if task.claimed? %>
+              <%= button_to 'Release',
+                  main_app.release_task_url(:id => task.id), :method => :post, :class=> "release-link",
+                  :id => "release-task-#{task.id}" %>
+            <% else %>
+              <%= button_to 'Claim',
+                  main_app.claim_task_url(:id => task.id), :method => :post, :class=> "claim-link",
+                  :id => "claim-task-#{task.id}" %>
+            <% end %>
+            <%= link_to entity_task_path(task),
+                :method => :get,
+                :id => task.id do %>
+              <button>View</button>
+            <% end %>
+          </td>
+          <td class="task_role">
+            <%= task.role.titleize %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <thead>
+      <th>
+        No more tasks!
+      </th>
+    </thead>
+  <% end %>
+</table>
