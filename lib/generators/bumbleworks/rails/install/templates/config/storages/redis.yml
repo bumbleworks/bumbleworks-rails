@@ -1,0 +1,20 @@
+# Using the Redis storage adapter for Bumbleworks.
+#
+default: &default
+  # Hostname where database server resides
+  host: localhost
+
+  # Which Redis database number to use
+  db: 0
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  # We use database number 1 by default here, so as to not cause conflicts
+  # with the default 0 used in development/production.
+  db: 1
+
+production:
+  <<: *default
