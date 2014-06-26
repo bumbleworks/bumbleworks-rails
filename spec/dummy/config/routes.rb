@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :silvo_blooms
+  resources :fridgets
+
   mount Bumbleworks::Gui::RackApp => 'bw'
 
   root 'bumbleworks/rails/tasks#index'
