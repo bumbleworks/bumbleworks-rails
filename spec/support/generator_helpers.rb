@@ -24,6 +24,9 @@ module GeneratorHelpers
           directory "locales" do
             file "bumbleworks.en.yml"
           end
+          file "routes.rb" do
+            contains "bumbleworks/rails"
+          end
         end
         directory "lib" do
           directory "bumbleworks" do

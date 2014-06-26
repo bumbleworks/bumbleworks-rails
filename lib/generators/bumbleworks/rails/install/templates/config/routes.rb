@@ -1,6 +1,3 @@
-require 'bumbleworks/gui'
-
-Rails.application.routes.draw do
   scope :module => 'bumbleworks/rails' do
     scope '(:entity_type/:entity_id)' do
       resources :tasks, :only => [:index, :show] do
@@ -14,6 +11,3 @@ Rails.application.routes.draw do
   end
 
   mount Bumbleworks::Gui::RackApp => 'bw'
-
-  root 'bumbleworks/rails/tasks#index'
-end

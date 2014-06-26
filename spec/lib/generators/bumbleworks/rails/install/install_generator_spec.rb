@@ -6,8 +6,12 @@ describe Bumbleworks::Rails::InstallGenerator do
   before(:each) do
     prepare_destination
     mkdir_p destination_root.join('app', 'controllers')
+    mkdir_p destination_root.join('config')
     File.open(destination_root.join('app', 'controllers', 'application_controller.rb'), 'w') do |f|
       f.puts('protect_from_forgery with: :exception')
+    end
+    File.open(destination_root.join('config', 'routes.rb'), 'w') do |f|
+      f.puts('.routes.draw do')
     end
   end
 

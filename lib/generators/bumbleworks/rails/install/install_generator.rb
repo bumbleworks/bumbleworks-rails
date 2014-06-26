@@ -90,6 +90,12 @@ Let's install Bumbleworks into your Rails app!
           "config/locales/bumbleworks.en.yml"
       end
 
+      def add_routes
+        insert_into_file 'config/routes.rb', :after => /\.routes\.draw do\s*$/ do
+          File.read(find_in_source_paths('config/routes.rb'))
+        end
+      end
+
       def add_task_helper_to_application_controller
         insert_into_file 'app/controllers/application_controller.rb',
           :after => "protect_from_forgery with: :exception\n" do <<-RUBY
