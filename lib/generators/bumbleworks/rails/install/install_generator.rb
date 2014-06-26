@@ -95,7 +95,7 @@ Let's install Bumbleworks into your Rails app!
           File.read(find_in_source_paths('config/routes.rb'))
         end
         prepend_file 'config/routes.rb' do
-          "require 'bumbleworks/gui'"
+          "require 'bumbleworks/gui'\n\n"
         end
       end
 
