@@ -26,6 +26,7 @@ module GeneratorHelpers
           end
           file "routes.rb" do
             contains "bumbleworks/rails"
+            contains "require 'bumbleworks/gui'"
           end
         end
         directory "lib" do

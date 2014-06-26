@@ -94,6 +94,9 @@ Let's install Bumbleworks into your Rails app!
         insert_into_file 'config/routes.rb', :after => /\.routes\.draw do\s*$/ do
           File.read(find_in_source_paths('config/routes.rb'))
         end
+        prepend_file 'config/routes.rb' do
+          "require 'bumbleworks/gui'"
+        end
       end
 
       def add_task_helper_to_application_controller
