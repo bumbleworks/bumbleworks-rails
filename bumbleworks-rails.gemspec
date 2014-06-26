@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency "railties", "~> 4.0"
   s.add_dependency "bumbleworks", ">= 0.0.74"
   s.add_dependency "bumbleworks-gui", "~> 0.0.4"
 
@@ -24,4 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails", "~> 3.0"
   s.add_development_dependency "generator_spec"
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "rails", "~> 4.0"
 end
