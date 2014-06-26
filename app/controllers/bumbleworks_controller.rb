@@ -1,4 +1,4 @@
-class BumbleworksController < ApplicationController
+class BumbleworksController < Bumbleworks::Rails::ApplicationController
   include Bumbleworks::Rails::TasksHelper
 
   def render_unauthorized
