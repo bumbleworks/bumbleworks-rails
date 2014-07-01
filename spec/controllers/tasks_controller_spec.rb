@@ -166,6 +166,12 @@ describe Bumbleworks::Rails::TasksController do
       expect(response).to have_http_status(:not_found)
     end
 
+    it 'renders 404 if entity class not registered with Bumbleworks' do
+      Smoo = Class.new
+      get :index, :entity_type => 'smoo', :entity_id => 2
+      expect(response).to have_http_status(:not_found)
+    end
+
     it 'renders generic index template if no entity' do
       get :index
       expect(response).to render_template('bumbleworks/rails/tasks/index')

@@ -59,7 +59,7 @@ protected
       @entity = @task.entity if @task.has_entity?
     elsif params[:entity_type].present? && params[:entity_id].present?
       klass = params[:entity_type].classify.constantize
-      render_404 unless Bumbleworks.entity_classes.include?(klass)
+      render_404 and return unless Bumbleworks.entity_classes.include?(klass)
       @entity = klass.first_by_identifier(params[:entity_id])
       render_404 and return unless @entity
     end
