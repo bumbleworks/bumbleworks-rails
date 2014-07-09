@@ -59,7 +59,7 @@ describe Bumbleworks::Rails::TasksController do
       expect(task).to receive(:complete).with('foo' => 'bar')
       post :complete, :id => 152, :task => { :foo => :bar }
       expect(flash[:notice]).to eq(I18n.t('bumbleworks.tasks.completed'))
-      expect(response).to redirect_to(tasks_path)
+      expect(response).to redirect_to(controller.entity_tasks_path(task.entity))
     end
 
     it 'does not complete the task if not claimed by current_user' do
@@ -67,8 +67,7 @@ describe Bumbleworks::Rails::TasksController do
       expect(task).not_to receive(:complete)
       post :complete, :id => 152, :task => { :foo => :bar }
       expect(flash[:error]).to eq(I18n.t('bumbleworks.tasks.unclaimed_complete_attempt'))
-      # TODO: Figure out why the route is not being recognized
-      # expect(response).to redirect_to(:action => :show, :entity_type => 'fridgets', :entity_id => 5)
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
 
     it 'does not complete the task if not completable' do
@@ -77,22 +76,17 @@ describe Bumbleworks::Rails::TasksController do
         and_raise(Bumbleworks::Task::NotCompletable, "no way")
       post :complete, :id => 152, :task => { :foo => :bar }
       expect(flash[:error]).to eq("no way")
-      # TODO: Figure out why the route is not being recognized
-      # expect(response).to redirect_to(:action => :show, :entity_type => 'fridgets', :entity_id => 5)
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
   end
 
   describe '#claim' do
     it_behaves_like 'a task action', :post, :claim
 
-    after(:each) do
-      # TODO: Figure out why the route is not being recognized
-      # expect(response).to redirect_to(:action => :show, :entity_type => 'fridgets', :entity_id => 5)
-    end
-
     it 'claims the task if authorized and unclaimed' do
       expect(subject.current_user).to receive(:claim).with(task)
       post :claim, :id => 152
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
 
     it 'does not claim the task if unauthorized' do
@@ -100,6 +94,7 @@ describe Bumbleworks::Rails::TasksController do
         and_raise(Bumbleworks::User::UnauthorizedClaimAttempt, "you can't")
       post :claim, :id => 152
       expect(flash[:error]).to eq("you can't")
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
 
     it 'does not claim the task if already claimed' do
@@ -107,20 +102,17 @@ describe Bumbleworks::Rails::TasksController do
         and_raise(Bumbleworks::Task::AlreadyClaimed, "someone has it")
       post :claim, :id => 152
       expect(flash[:error]).to eq("someone has it")
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
   end
 
   describe '#release' do
     it_behaves_like 'a task action', :post, :release
 
-    after(:each) do
-      # TODO: Figure out why the route is not being recognized
-      # expect(response).to redirect_to(:action => :show, :entity_type => 'fridgets', :entity_id => 5)
-    end
-
     it 'releases the task if current claimant' do
       expect(subject.current_user).to receive(:release).with(task)
       post :release, :id => 152
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
 
     it 'does not release the task if not claimant' do
@@ -128,6 +120,7 @@ describe Bumbleworks::Rails::TasksController do
         and_raise(Bumbleworks::User::UnauthorizedReleaseAttempt)
       post :release, :id => 152
       expect(flash[:error]).to eq(I18n.t('bumbleworks.tasks.unauthorized_release_attempt'))
+      expect(response).to redirect_to(controller.entity_task_path(task))
     end
   end
 
@@ -185,8 +178,6 @@ describe Bumbleworks::Rails::TasksController do
 
     it 'renders generic index template if entity has no specific one' do
       Fridget.new(6)
-      # allow(Fridget).to receive(:first_by_identifier).with('6').
-      #   and_return(:an_entity)
       get :index, :entity_type => 'fridgets', :entity_id => '6'
       expect(response).to render_template('bumbleworks/rails/tasks/index')
     end

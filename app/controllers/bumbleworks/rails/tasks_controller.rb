@@ -19,7 +19,7 @@ class Bumbleworks::Rails::TasksController < BumbleworksController
     if @task.claimant == current_user.claim_token
       @task.complete(params[:task] || {})
       flash[:notice] = I18n.t('bumbleworks.tasks.completed')
-      redirect_to tasks_path
+      redirect_to entity_tasks_path @entity
     else
       flash[:error] = I18n.t('bumbleworks.tasks.unclaimed_complete_attempt')
       redirect_to entity_task_path @task

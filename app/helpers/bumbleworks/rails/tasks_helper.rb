@@ -27,6 +27,18 @@ module Bumbleworks
       def entity_task_path(task, options = {})
         entity_task_url(task, options.merge(:only_path => true))
       end
+
+      def entity_tasks_url(entity, options = {})
+        if entity
+          options[:entity_type] = entity.class.entity_type.pluralize
+          options[:entity_id] = entity.identifier
+        end
+        main_app.tasks_url(options)
+      end
+
+      def entity_tasks_path(entity, options = {})
+        entity_tasks_url(entity, options.merge(:only_path => true))
+      end
     end
   end
 end

@@ -3,7 +3,8 @@ describe Bumbleworks::Rails::TasksHelper do
     double(Bumbleworks::Task, {
       :nickname => 'chew_on_quandary',
       :entity => Fridget.new(5),
-      :has_entity? => true
+      :has_entity? => true,
+      :id => '12345-spaghetti-hats'
     })
   }
 
@@ -49,6 +50,50 @@ describe Bumbleworks::Rails::TasksHelper do
         }).
         and_return('pretend')
       expect(helper.render_task_partial(task)).to eq('pretend')
+    end
+  end
+
+  context 'task url helpers' do
+    let(:main_app) { double('main_app') }
+
+    before(:each) do
+      allow(helper).to receive(:main_app).and_return(main_app)
+    end
+
+    describe '#entity_task_url' do
+      it 'returns an entity-specific url for the task' do
+        allow(main_app).to receive(:task_url).
+          with(:entity_type => 'fridgets', :entity_id => 5, :other => :things, :id => task.id).
+          and_return(:the_url)
+        expect(helper.entity_task_url(task, :other => :things)).to eq(:the_url)
+      end
+    end
+
+    describe '#entity_tasks_url' do
+      it 'returns an entity-specific task index' do
+        allow(main_app).to receive(:tasks_url).
+          with(:entity_type => 'fridgets', :entity_id => 5, :other => :things).
+          and_return(:the_url)
+        expect(helper.entity_tasks_url(task.entity, :other => :things)).to eq(:the_url)
+      end
+    end
+
+    describe '#entity_task_path' do
+      it 'returns a path-only entity task url' do
+        allow(helper).to receive(:entity_task_url).
+          with(task.entity, :other => :things, :only_path => true).
+          and_return(:the_url)
+        expect(helper.entity_task_path(task.entity, :other => :things)).to eq(:the_url)
+      end
+    end
+
+    describe '#entity_tasks_path' do
+      it 'returns a path-only entity tasks url' do
+        allow(helper).to receive(:entity_tasks_url).
+          with(task.entity, :other => :things, :only_path => true).
+          and_return(:the_url)
+        expect(helper.entity_tasks_path(task.entity, :other => :things)).to eq(:the_url)
+      end
     end
   end
 end

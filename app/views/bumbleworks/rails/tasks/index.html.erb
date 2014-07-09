@@ -4,8 +4,8 @@
   </header>
   <h3>Available</h3>
   <%= render :partial => 'bumbleworks/rails/tasks/table',
-      :locals => { :tasks => @available_tasks } %>
+      :locals => { :tasks => @available_tasks, :type => 'available' } %>
   <h3>Claimed</h3>
   <%= render :partial => 'bumbleworks/rails/tasks/table',
-      :locals => { :tasks => @claimed_tasks } %>
+      :locals => { :tasks => @claimed_tasks, :type => 'claimed' } %>
 </div>

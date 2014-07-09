@@ -1,4 +1,4 @@
-<table class="tasks">
+<table class="tasks <%= type %>-tasks">
   <% unless tasks.empty? %>
     <thead>
       <th>Task</th>
@@ -7,7 +7,7 @@
     </thead>
     <tbody>
       <% tasks.sort_by {|x| x['dispatched_at']}.each do |task| %>
-        <tr class="task">
+        <tr class="task" id="<%= task.nickname %>">
           <td class="task-name">
             <%= task_name(task) %>
           </td>
