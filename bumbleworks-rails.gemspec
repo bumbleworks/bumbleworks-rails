@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "railties", "~> 4.0"
-  s.add_dependency "bumbleworks", ">= 0.0.74"
+  s.add_dependency "bumbleworks", ">= 0.0.77"
   s.add_dependency "bumbleworks-gui", "~> 0.0.4"
 
   s.add_development_dependency "sqlite3"

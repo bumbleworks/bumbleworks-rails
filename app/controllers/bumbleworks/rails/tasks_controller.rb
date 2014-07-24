@@ -27,6 +27,8 @@ class Bumbleworks::Rails::TasksController < BumbleworksController
   rescue Bumbleworks::Task::NotCompletable => e
     flash[:error] = e.message
     redirect_to entity_task_path @task
+  rescue Bumbleworks::Task::CompletionFailed
+    render :show, :prefixes => template_prefixes
   end
 
   def claim

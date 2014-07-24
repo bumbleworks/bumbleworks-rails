@@ -78,6 +78,14 @@ describe Bumbleworks::Rails::TasksController do
       expect(flash[:error]).to eq("no way")
       expect(response).to redirect_to(controller.entity_task_path(task))
     end
+
+    it 'does not complete the task if completion fails' do
+      allow(task).to receive(:claimant).and_return('scotch')
+      expect(task).to receive(:complete).
+        and_raise(Bumbleworks::Task::CompletionFailed)
+      post :complete, :id => 152, :task => { :foo => :bar }
+      expect(response).to render_template('fridgets/tasks/show')
+    end
   end
 
   describe '#claim' do
