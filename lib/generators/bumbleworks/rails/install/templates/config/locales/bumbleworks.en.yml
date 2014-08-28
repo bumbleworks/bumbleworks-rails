@@ -1,8 +1,12 @@
-en:
-  bumbleworks:
-    unauthorized: "You are not authorized to access that resource."
-    tasks:
-      completed: "Task completed!"
-      not_found: "Can't find task %{task_id}"
-      unauthorized_release_attempt: "You do not currently have a lock on this task"
-      unclaimed_complete_attempt: "You cannot complete a task not claimed by you"
+# Override default bumbleworks translations here!
+#
+# en:
+#   bumbleworks:
+#     unauthorized: "You are not authorized to access that resource."
+#     tasks:
+#       claimed: "You have successfully claimed task \"%{task}\"."
+#       released: "You have successfully released task \"%{task}\"."
+#       completed: "Task \"%{task}\" completed."
+#       not_found: "Can't find task %{task_id}"
+#       unauthorized_release_attempt: "You do not currently have a lock on this task"
+#       unclaimed_complete_attempt: "You cannot complete a task not claimed by you"
