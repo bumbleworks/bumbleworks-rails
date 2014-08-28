@@ -18,10 +18,10 @@ class Bumbleworks::Rails::TasksController < BumbleworksController
   def complete
     if @task.claimant == current_user.claim_token
       @task.complete(params[:task] || {})
-      flash[:notice] = I18n.t('bumbleworks.tasks.completed')
+      flash[:notice] = I18n.t('bumbleworks.tasks.completed', :task => task_name(@task))
       redirect_to entity_tasks_path @entity
     else
-      flash[:error] = I18n.t('bumbleworks.tasks.unclaimed_complete_attempt')
+      flash[:error] = I18n.t('bumbleworks.tasks.unclaimed_complete_attempt', :task => task_name(@task))
       redirect_to entity_task_path @task
     end
   rescue Bumbleworks::Task::NotCompletable => e
@@ -33,6 +33,7 @@ class Bumbleworks::Rails::TasksController < BumbleworksController
 
   def claim
     current_user.claim(@task)
+    flash[:notice] = I18n.t('bumbleworks.tasks.claimed', :task => task_name(@task))
   rescue Bumbleworks::User::UnauthorizedClaimAttempt,
          Bumbleworks::Task::AlreadyClaimed => e
     flash[:error] = e.message
@@ -42,10 +43,11 @@ class Bumbleworks::Rails::TasksController < BumbleworksController
 
   def release
     current_user.release(@task)
+    flash[:notice] = I18n.t('bumbleworks.tasks.released', :task => task_name(@task))
   rescue Bumbleworks::User::UnauthorizedReleaseAttempt
-    flash[:error] = I18n.t('bumbleworks.tasks.unauthorized_release_attempt')
+    flash[:error] = I18n.t('bumbleworks.tasks.unauthorized_release_attempt', :task => task_name(@task))
   ensure
-    redirect_to entity_task_path @task
+    redirect_to entity_tasks_path @entity
   end
 
 protected

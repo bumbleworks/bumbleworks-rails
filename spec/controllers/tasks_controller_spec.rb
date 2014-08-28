@@ -4,7 +4,8 @@ describe Bumbleworks::Rails::TasksController do
       :role => 'cop',
       :id => 'werk',
       :entity => Fridget.new(5),
-      :has_entity? => true
+      :has_entity? => true,
+      :nickname => 'do_stuff'
     })
   }
 
@@ -120,7 +121,7 @@ describe Bumbleworks::Rails::TasksController do
     it 'releases the task if current claimant' do
       expect(subject.current_user).to receive(:release).with(task)
       post :release, :id => 152
-      expect(response).to redirect_to(controller.entity_task_path(task))
+      expect(response).to redirect_to(controller.entity_tasks_path(task.entity))
     end
 
     it 'does not release the task if not claimant' do
@@ -128,7 +129,7 @@ describe Bumbleworks::Rails::TasksController do
         and_raise(Bumbleworks::User::UnauthorizedReleaseAttempt)
       post :release, :id => 152
       expect(flash[:error]).to eq(I18n.t('bumbleworks.tasks.unauthorized_release_attempt'))
-      expect(response).to redirect_to(controller.entity_task_path(task))
+      expect(response).to redirect_to(controller.entity_tasks_path(task.entity))
     end
   end
 
