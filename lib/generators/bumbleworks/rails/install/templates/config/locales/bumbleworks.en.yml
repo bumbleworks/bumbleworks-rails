@@ -1,7 +1,7 @@
 # Override default bumbleworks translations here!
 #
-# en:
-#   bumbleworks:
+en:
+  bumbleworks:
 #     unauthorized: "You are not authorized to access that resource."
 #     tasks:
 #       claimed: "You have successfully claimed task \"%{task}\"."
